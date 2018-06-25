@@ -1,7 +1,12 @@
 # -- coding: utf-8 --
 
-import os, sys
-from variables import path, ambiente
+import os, sys, re
+import unidecode
+
+ambiente = 'integracion'
+
+path_ubicado = os.getcwd()
+path = os.path.abspath(os.path.join(path_ubicado, '..'))
 
 path_tablas = path+'\\resources\\tablas'
 
@@ -27,15 +32,11 @@ f = open(path+'\\arhivos_con_ambiente.txt', 'w')
 
 archivos_con_ambiente = []
 for archivo in archivos_parametros:
-	with open(path_tablas+'\\'+archivo, encoding="ISO-8859-1") as archivo_leido:
+	with open(path_tablas+'\\'+archivo,'r') as archivo_leido:
 		for line in archivo_leido:
-			if ('#'+ambiente) in line.lower() or \
-			(' '+ambiente) in line.lower():
-				palabra = ("linea: "+line)
-				archivo_correspondiente = ("archivo correspondiente: "+archivo)
-				f.writelines(palabra)
-				f.writelines(archivo_correspondiente+'\n')
-				archivos_con_ambiente.append(archivo)
-				break
-
+			for word in line:
+				if re.match('^[a-zA-Z_]+$', word):
+			#if re.match('^[a-zA-Z_]+$', line):
+				print(line)
+			
 f.close()

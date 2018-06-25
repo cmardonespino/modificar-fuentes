@@ -8,7 +8,7 @@ path_tablas = path+'\\resources\\tablas'
 
 carpetas_en_el_directorio = os.listdir(path_tablas)
 
-#VERSION 11
+#VERSION 8
 os.system('mkdir '+path+'\\output')
 def method(lines, archivo, ambientes, ambiente):
 	ambientes_elem = set(ambientes)
@@ -18,7 +18,16 @@ def method(lines, archivo, ambientes, ambiente):
 	nuevo_contenido_archivo = []
 
 	for i in range(len(lines)):
-		if any(word in lines[i].lower() for word in ambientes):
+		if 'desarrollo' in lines[i].lower() or \
+		'integracion' in lines[i].lower() or \
+		'produccion' in lines[i].lower() or \
+		'integración' in lines[i].lower() or \
+		'producción' in lines[i].lower() or \
+		'filesystem desarrollo' in lines[i].lower() or \
+		'filesystem integracion' in lines[i].lower() or \
+		'filesystem produccion' in lines[i].lower() or \
+		'filesystem integración' in lines[i].lower() or \
+		'filesystem producción' in lines[i].lower():
 			a = 2
 			if '#' in lines[i]:
 				nuevo_contenido_archivo.append(lines[i])
@@ -33,24 +42,14 @@ def method(lines, archivo, ambientes, ambiente):
 				newstr = lines[i].replace("#", "")
 				nuevo_contenido_archivo.append(newstr)
 			else:
-				# condicion agregada por archivo admMisSegurosVig.parametros
-				if '#' in lines[i].lower():
-					nuevo_contenido_archivo.append(lines[i])
-				else:
-					nuevo_contenido_archivo.append('#'+lines[i])
 				a = 1
+				nuevo_contenido_archivo.append(lines[i])
 		else:
 			if a == 2 and lines[i] != '\n':
 				if '#' in lines[i]:
 					#agregado por archivo admMisSegurosVig.parametros
 					# linea 89
 					if 'servicioAlertaLatinia;' in lines[i]:
-						newstr = lines[i].replace("#", "")
-						nuevo_contenido_archivo.append(newstr)
-					#agregado por archivo Riesgo.parametros
-					# linea 135
-					elif 'alsgpyme' in lines[i].lower() and \
-					 ';' in lines[i].lower():
 						newstr = lines[i].replace("#", "")
 						nuevo_contenido_archivo.append(newstr)
 					else:
@@ -69,8 +68,6 @@ def method(lines, archivo, ambientes, ambiente):
 					nuevo_contenido_archivo.append(lines[i])
 				elif ';' in lines[i]:
 					nuevo_contenido_archivo.append('#'+lines[i])
-				elif '==' in lines[i]:
-					nuevo_contenido_archivo.append('#'+lines[i])
 				else:
 					nuevo_contenido_archivo.append('#'+lines[i])
 			elif a == 1 and lines[i] != '\n':
@@ -80,8 +77,6 @@ def method(lines, archivo, ambientes, ambiente):
 					elif '.\n' in lines[i]:
 						nuevo_contenido_archivo.append(lines[i])
 					elif ' - ' in lines[i]:
-						nuevo_contenido_archivo.append(lines[i])
-					elif '==' in lines[i]:
 						nuevo_contenido_archivo.append(lines[i])
 					else:
 						newstr = lines[i].replace("#", "")
@@ -95,8 +90,6 @@ def method(lines, archivo, ambientes, ambiente):
 						nuevo_contenido_archivo.append('#'+lines[i])
 				elif ';' in lines[i]:
 					nuevo_contenido_archivo.append(lines[i])
-				elif '==' in lines[i]:
-					nuevo_contenido_archivo.append('#'+lines[i])
 				else:
 					nuevo_contenido_archivo.append(lines[i])
 			else:
@@ -111,6 +104,6 @@ if ambiente in ambientes_elem:
 
 
 for archivo in archivos_con_ambiente:
-	with open(path_tablas+'\\'+archivo,errors='ignore') as f:
+	with open(path_tablas+'\\'+archivo) as f:
 		lines = f.readlines()
 		method(lines, archivo, ambientes, ambiente)

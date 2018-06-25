@@ -8,7 +8,7 @@ path_tablas = path+'\\resources\\tablas'
 
 carpetas_en_el_directorio = os.listdir(path_tablas)
 
-#VERSION 11
+#VERSION 10
 os.system('mkdir '+path+'\\output')
 def method(lines, archivo, ambientes, ambiente):
 	ambientes_elem = set(ambientes)
@@ -47,12 +47,6 @@ def method(lines, archivo, ambientes, ambiente):
 					if 'servicioAlertaLatinia;' in lines[i]:
 						newstr = lines[i].replace("#", "")
 						nuevo_contenido_archivo.append(newstr)
-					#agregado por archivo Riesgo.parametros
-					# linea 135
-					elif 'alsgpyme' in lines[i].lower() and \
-					 ';' in lines[i].lower():
-						newstr = lines[i].replace("#", "")
-						nuevo_contenido_archivo.append(newstr)
 					else:
 						nuevo_contenido_archivo.append(lines[i])
 				elif '---' in lines[i]:
@@ -69,8 +63,6 @@ def method(lines, archivo, ambientes, ambiente):
 					nuevo_contenido_archivo.append(lines[i])
 				elif ';' in lines[i]:
 					nuevo_contenido_archivo.append('#'+lines[i])
-				elif '==' in lines[i]:
-					nuevo_contenido_archivo.append('#'+lines[i])
 				else:
 					nuevo_contenido_archivo.append('#'+lines[i])
 			elif a == 1 and lines[i] != '\n':
@@ -80,8 +72,6 @@ def method(lines, archivo, ambientes, ambiente):
 					elif '.\n' in lines[i]:
 						nuevo_contenido_archivo.append(lines[i])
 					elif ' - ' in lines[i]:
-						nuevo_contenido_archivo.append(lines[i])
-					elif '==' in lines[i]:
 						nuevo_contenido_archivo.append(lines[i])
 					else:
 						newstr = lines[i].replace("#", "")
@@ -95,8 +85,6 @@ def method(lines, archivo, ambientes, ambiente):
 						nuevo_contenido_archivo.append('#'+lines[i])
 				elif ';' in lines[i]:
 					nuevo_contenido_archivo.append(lines[i])
-				elif '==' in lines[i]:
-					nuevo_contenido_archivo.append('#'+lines[i])
 				else:
 					nuevo_contenido_archivo.append(lines[i])
 			else:
@@ -111,6 +99,6 @@ if ambiente in ambientes_elem:
 
 
 for archivo in archivos_con_ambiente:
-	with open(path_tablas+'\\'+archivo,errors='ignore') as f:
+	with open(path_tablas+'\\'+archivo) as f:
 		lines = f.readlines()
 		method(lines, archivo, ambientes, ambiente)

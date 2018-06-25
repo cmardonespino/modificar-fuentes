@@ -19,6 +19,7 @@ function yellow() {
 
 case "$1" in
   go)
+    rm -rf output/
     cd src
     green "IDENTIFICANDO FUENTES .PARAMETROS CON EL AMBIENTE INGRESADO"
     python identificar_archivos.py

@@ -9,3 +9,9 @@ path_ubicado = os.getcwd()
 path = os.path.abspath(os.path.join(path_ubicado, '..'))
 
 ambiente = 'produccion'
+ambientes = [
+	'produccion', 
+	'desarrollo', 
+	'certificacion',
+	'integracion',
+]
