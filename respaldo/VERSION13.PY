@@ -8,7 +8,7 @@ path_tablas = path+'\\resources\\tablas'
 
 carpetas_en_el_directorio = os.listdir(path_tablas)
 
-#VERSION 14
+#VERSION 13
 os.system('mkdir '+path+'\\output')
 def method(lines, ambientes, ambiente):
 	ambientes_elem = set(ambientes)
