@@ -8,7 +8,7 @@ import os
 path_ubicado = os.getcwd()
 path = os.path.abspath(os.path.join(path_ubicado, '..'))
 
-ambiente = 'produccion'
+ambiente = 'certificacion'
 ambientes = [
 	'produccion', 
 	'desarrollo', 

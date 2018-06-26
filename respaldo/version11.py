@@ -1,6 +1,6 @@
  # -- coding: utf-8 --
 
-import os, sys, unidecode
+import os, sys
 from variables import path, ambiente, ambientes
 from identificar_archivos import archivos_con_ambiente
 
@@ -8,7 +8,7 @@ path_tablas = path+'\\resources\\tablas'
 
 carpetas_en_el_directorio = os.listdir(path_tablas)
 
-#VERSION 12
+#VERSION 11
 os.system('mkdir '+path+'\\output')
 def method(lines, archivo, ambientes, ambiente):
 	ambientes_elem = set(ambientes)
@@ -18,8 +18,7 @@ def method(lines, archivo, ambientes, ambiente):
 	nuevo_contenido_archivo = []
 
 	for i in range(len(lines)):
-		# se agrega unidecode por archivo AdministracionCampanas.parametros
-		if any(word in unidecode.unidecode(lines[i].lower()) for word in ambientes):
+		if any(word in lines[i].lower() for word in ambientes):
 			a = 2
 			if '#' in lines[i]:
 				nuevo_contenido_archivo.append(lines[i])
@@ -27,8 +26,8 @@ def method(lines, archivo, ambientes, ambiente):
 				nuevo_contenido_archivo.append(lines[i])
 			else:
 				nuevo_contenido_archivo.append('#'+lines[i])
-		elif ambiente in unidecode.unidecode(lines[i].lower()) or \
-		'filesystem '+ambiente in unidecode.unidecode(lines[i].lower()):
+		elif ambiente in lines[i].lower() or \
+		'filesystem '+ambiente in lines[i].lower():
 			# condición agregada por atmpagodeservicios.parametros
 			if ambiente+':' in lines[i]:
 				newstr = lines[i].replace("#", "")
@@ -83,9 +82,6 @@ def method(lines, archivo, ambientes, ambiente):
 					elif ' - ' in lines[i]:
 						nuevo_contenido_archivo.append(lines[i])
 					elif '==' in lines[i]:
-						nuevo_contenido_archivo.append(lines[i])
-					# se agrega por archivo alcancia.parametros
-					elif '#\n' in lines[i]:
 						nuevo_contenido_archivo.append(lines[i])
 					else:
 						newstr = lines[i].replace("#", "")

@@ -29,14 +29,16 @@ for name_file in carpetas_en_el_directorio:
 
 '''
 f = open(path+'\\arhivos_con_ambiente.txt', 'w')
+r = open(path+'\\wea.txt', 'w')
 
 archivos_con_ambiente = []
 for archivo in archivos_parametros:
-	with open(path_tablas+'\\'+archivo,'r') as archivo_leido:
+	with open(path_tablas+'\\'+archivo, encoding="ISO-8859-1") as archivo_leido:
 		for line in archivo_leido:
-			for word in line:
-				if re.match('^[a-zA-Z_]+$', word):
-			#if re.match('^[a-zA-Z_]+$', line):
-				print(line)
+			if ('#'+ambiente) in line.lower() or \
+			(' '+ambiente) in line.lower() or \
+			('#'+ambiente) in unidecode.unidecode(line.lower()) or \
+			(' '+ambiente) in unidecode.unidecode(line.lower()):
+				r.writelines(line)
 			
 f.close()
