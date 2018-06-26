@@ -1,7 +1,6 @@
 # -- coding: utf-8 --
 
 import os, sys
-import unidecode
 from variables import path, ambiente
 
 path_tablas = path+'\\resources\\tablas'
@@ -31,9 +30,7 @@ for archivo in archivos_parametros:
 	with open(path_tablas+'\\'+archivo, encoding="ISO-8859-1") as archivo_leido:
 		for line in archivo_leido:
 			if ('#'+ambiente) in line.lower() or \
-			(' '+ambiente) in line.lower() or \
-			('#'+ambiente) in unidecode.unidecode(line.lower()) or \
-			(' '+ambiente) in unidecode.unidecode(line.lower()):
+			(' '+ambiente) in line.lower():
 				palabra = ("linea: "+line)
 				archivo_correspondiente = ("archivo correspondiente: "+archivo)
 				f.writelines(palabra)
