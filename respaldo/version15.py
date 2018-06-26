@@ -8,7 +8,7 @@ path_tablas = path+'\\resources\\tablas'
 
 carpetas_en_el_directorio = os.listdir(path_tablas)
 
-#VERSION 16
+#VERSION 15
 os.system('mkdir '+path+'\\output')
 def method(lines, ambientes, ambiente):
 	ambientes_elem = set(ambientes)
@@ -46,7 +46,7 @@ def method(lines, ambientes, ambiente):
 				else:
 					nuevo_contenido_archivo.append('#'+lines[i])
 			elif a == 1 and lines[i] != '\n':
-				if ';' not in lines[i]:
+				if '#' in lines[i] and '--' in lines[i] or ';' not in lines[i]:
 					nuevo_contenido_archivo.append(lines[i])
 				elif any(word in unidecode.unidecode(lines[i].lower()) for word in ambientes):
 					nuevo_contenido_archivo.append(lines[i])
